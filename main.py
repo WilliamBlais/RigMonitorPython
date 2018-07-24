@@ -57,7 +57,7 @@ while 1:
             identification = [{
                 'api_key': config['api_key'],
                 'rig_id': rig['id'],
-                'miner': type,
+                'miner': rig['type'],
                 'version': version
             }]
             data[0]['identification'] = identification
@@ -66,7 +66,7 @@ while 1:
             if config['debug']:
                 print(json.dumps(data))
             else:
-                print(f'Data successfully fetched from {type}')
+                print(f'Data successfully fetched from {rig["type"]}')
 
             # Send data to API
             try:
