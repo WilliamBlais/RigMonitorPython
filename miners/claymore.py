@@ -36,6 +36,7 @@ class ClaymoreMiner(object):
 
         except socket.error as msg:
             print("Socket error: {0}".format(msg))
+            input("Press enter to exit")
             sys.exit(1)
 
     def getStats(self):
@@ -172,5 +173,6 @@ class ClaymoreMiner(object):
             data = [{"gpu": gpu_data, "miner": miner_data}]
         except Exception as x:
             print("Failed to decode miner data " + str(x))
+            input("Press enter to exit")
             sys.exit(1)
         return data

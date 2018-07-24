@@ -9,23 +9,32 @@ from miners.bminer import BMiner
 from miners.claymore import ClaymoreMiner
 
 version = '0.1'
-api_url = 'http://127.0.0.1:8000/api/external'
+api_url = 'https://api.rigmonitor.io/api/external'
 
 # Load Config
 config = configparser.ConfigParser()
-config.read_file(open('config.ini'))
 
-api_key = config.get('GENERAL', 'API_KEY')
-if not api_key.strip():
-    print('Please insert the config file within the same folder of this program.')
+try:
+    config.read_file(open('config.ini'))
+except:
+    print(
+        'Cloud not load config file. Please download your config.ini file from RigMonitor.io and copy it in this program directory.')
+    input("Press enter to exit")
     sys.exit(1)
 
+api_key = config.get('GENERAL', 'API_KEY')
 type = config.get('MINER', 'TYPE')
 host = config.get('MINER', 'HOST')
 port = int(config.get('MINER', 'PORT'))
 password = config.get('MINER', 'PASSWORD')
 
-print(f'Welcome to RigMonitor version {version}')
+if not api_key.strip():
+    print(
+        'Missing API key. Please download your config.ini file from RigMonitor.io and copy it in this program directory.')
+    input("Press enter to exit")
+    sys.exit(1)
+
+print(f'Welcome to RigMonitor.io version {version}')
 print('Please send any feedback or bug report to contact@ostrich.media')
 
 while 1:
@@ -40,6 +49,7 @@ while 1:
 
     if data is None:
         print('Miner Type not supported or no response from getStats().')
+        input("Press enter to exit")
         sys.exit(1)
 
     # add identification to data

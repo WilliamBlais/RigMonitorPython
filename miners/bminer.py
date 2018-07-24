@@ -18,6 +18,7 @@ class BMiner(object):
             rig_json_data = json.loads(rig_data.read().decode("utf-8"))
         except Exception as x:
             print("Error: Could not connect to rig. Please check the configuration file.")
+            input("Press enter to exit")
             sys.exit(1)
 
         return rig_json_data
@@ -54,6 +55,7 @@ class BMiner(object):
             data = [{"gpu": gpu_data, "miner": miner_data}]
         except Exception as x:
             print("Failed to decode miner data " + str(x))
+            input("Press enter to exit")
             sys.exit(1)
 
         return data
