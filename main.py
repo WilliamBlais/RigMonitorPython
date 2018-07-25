@@ -6,12 +6,13 @@ import requests
 from raven import Client
 
 from miners.bminer import BMiner
+from miners.castxmr import Castxmr
 from miners.claymore import ClaymoreMiner
 
 # Sentry
 client = Client('https://0813bc02480642a99a2338ef50250072:41bf8af4deea4c3b9a7799582e194546@sentry.io/1248845')
 
-version = '0.1'
+version = '0.2'
 api_url = 'https://api.rigmonitor.io/api/external'
 
 
@@ -20,13 +21,13 @@ try:
     config = json.load(config_raw)
 except:
     print(
-        'Could not load config file. Please download your config.json file from RigMonitor.io and copy it in this program directory.')
+        'Could not load the config file. Please download your config.json file from RigMonitor.io (In Rigs -> More -> Settings -> Installation Instructions) and copy it in this program directory.')
     input("Press enter to exit")
     sys.exit(1)
 
 if not config['api_key']:
     print(
-        'Missing API key. Please download your config.json file from RigMonitor.io and copy it in this program directory.')
+        'Missing API key. Please download your config.json file from RigMonitor.io (In Rigs -> More -> Settings -> Installation Instructions) and copy it in this program directory.')
     input("Press enter to exit")
     sys.exit(1)
 
@@ -49,6 +50,9 @@ while 1:
         # BMiner
         if rig['type'] == 'BMINER':
             data = BMiner(rig['host'], rig['port'], rig['password'], client).getStats()
+        # CASTXMR
+        if rig['type'] == 'CASTXMR':
+            data = Castxmr(rig['host'], rig['port'], rig['password'], client).getStats()
 
         if not data:
             print('Miner Type not supported or no response from getStats().')
