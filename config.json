@@ -1,0 +1,13 @@
+{
+  "api_key": "RIGMONITOR_API_KEY",
+  "debug": false,
+  "rigs": [
+    {
+      "id": YOURRIGIDFROMRIGMONITOR,
+      "host": "localhost",
+      "port": 3333,
+      "type": "CLAYMORE",
+      "password": null
+    }
+  ]
+}
