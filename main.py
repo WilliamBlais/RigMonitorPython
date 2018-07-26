@@ -7,12 +7,13 @@ from raven import Client
 
 from miners.bminer import BMiner
 from miners.castxmr import Castxmr
+from miners.ccminer import Ccminer
 from miners.claymore import ClaymoreMiner
 
 # Sentry
 client = Client('https://0813bc02480642a99a2338ef50250072:41bf8af4deea4c3b9a7799582e194546@sentry.io/1248845')
 
-version = '0.2'
+version = '0.3'
 api_url = 'https://api.rigmonitor.io/api/external'
 
 
@@ -42,7 +43,7 @@ print(f'Welcome to RigMonitor.io version {version}')
 print('Please send any feedback or bug report to contact@ostrich.media')
 while 1:
     for rig in config["rigs"]:
-        print(f'Connecting to rig #{rig["id"]} {rig["type"]}...')
+        print(f'Connecting to rig #{rig["id"]}...')
         data = []
         # Claymore
         if rig['type'] == 'CLAYMORE':
@@ -53,9 +54,12 @@ while 1:
         # CASTXMR
         if rig['type'] == 'CASTXMR':
             data = Castxmr(rig['host'], rig['port'], rig['password'], client).getStats()
+        # CCMINER
+        if rig['type'] == 'CCMINER':
+            data = Ccminer(rig['host'], rig['port'], rig['password'], client).getStats()
 
         if not data:
-            print('Miner Type not supported or no response from getStats().')
+            print('Error: No Data from miner.')
         else:
             # add identification to data
             identification = [{
