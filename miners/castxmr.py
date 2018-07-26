@@ -29,7 +29,6 @@ class Castxmr(object):
         if rig_json_data:
             try:
                 # Insert gpu measurement
-                rig_hashrate = 0
                 gpu_data = []
                 for device in rig_json_data["devices"]:
                     gpu = [
@@ -49,7 +48,7 @@ class Castxmr(object):
                         "main_rejected_shares": int(rig_json_data['shares']['num_rejected']),
                         "main_invalid_shares": int(rig_json_data['shares']['num_invalid']),
                         "main_pool_switches": int(rig_json_data['pool']['reconnects']),
-                        "current_mining_pool": str(rig_json_data['pool']['server']),
+                        "current_mining_pool": str(rig_json_data['pool']['server'])
                     }
                 ]
 
